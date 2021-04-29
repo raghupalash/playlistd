@@ -1,0 +1,10 @@
+{'display_name': 'raghu_palash',
+ 'external_urls': {'spotify': 'https://open.spotify.com/user/5ai9kmle7y2354tztz7pnlsfq'},
+ 'followers': {'href': None, 'total': 4},
+ 'href': 'https://api.spotify.com/v1/users/5ai9kmle7y2354tztz7pnlsfq',
+ 'id': '5ai9kmle7y2354tztz7pnlsfq',
+ 'images': [{'height': None,
+             'url': 'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=2538768059734558&height=300&width=300&ext=1622224397&hash=AeQhYCK7mPYkgRs3hMI',
+             'width': None}],
+ 'type': 'user',
+ 'uri': 'spotify:user:5ai9kmle7y2354tztz7pnlsfq'}

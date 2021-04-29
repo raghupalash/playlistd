@@ -1,0 +1,95 @@
+body, html {
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    color: white;
+}
+
+#profile-image {
+    height: 200px;
+    border-radius: 100%;
+}
+
+a {
+    color: white;
+}
+
+a:hover {
+    color: white;
+    text-decoration: white;
+}
+
+.spotify-btn {
+    background-color: #1DB954;
+    border-radius: 30px;
+}
+
+.landing {
+    background: #1A1515;
+    height: 100%;
+}
+
+.fa-chevron-down {
+    padding-top: 10px;
+}
+
+.rest-of-the-page {
+    background: #1A1515;
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    background: #1DB954;
+}
+
+::-webkit-scrollbar-track {
+    background:#1A1515;
+}
+
+.heading {
+    padding: 15px 0;
+    margin-bottom: 15px;
+    border-bottom:#1DB954 2px solid;
+}
+
+.recently_played img {
+    height: 100px;
+    width: 100px;
+    
+}
+
+.rest-of-the-page td {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
+@media only screen and (max-width: 995px) {
+    .recently_played img {
+        height: 70px;
+        width: 70px;
+    }
+    .track-name {
+        font-size: 16px;
+        margin: 0;
+    }
+    .rest-of-the-page td {
+        padding: 5px;
+    }
+}
+
+.recently_played .row {
+    margin: 30px 0;
+}
+
+.table {
+    color: white;
+}
+
+.show_more {
+    text-decoration: underline;
+    margin: 5px 0;
+}
+
