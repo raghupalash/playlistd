@@ -2,6 +2,7 @@ body, html {
     height: 100%;
     font-family: 'Poppins', sans-serif;
     color: white;
+    background: #1A1515;
 }
 
 #profile-image {
@@ -30,10 +31,6 @@ a:hover {
 
 .fa-chevron-down {
     padding-top: 10px;
-}
-
-.rest-of-the-page {
-    background: #1A1515;
 }
 
 ::-webkit-scrollbar {
@@ -78,6 +75,12 @@ a:hover {
     .rest-of-the-page td {
         padding: 5px;
     }
+    .mobile-hidden {
+        display: none;
+    }
+    .add-to-playlist {
+        font-size: 14px;
+    }
 }
 
 .recently_played .row {
@@ -88,8 +91,27 @@ a:hover {
     color: white;
 }
 
-.show_more {
+.show-more {
     text-decoration: underline;
     margin: 5px 0;
+}
+
+.add-to-playlist tbody tr{
+    border-top: 0.5px #6c757d solid;
+}
+
+#body .text-small {
+    font-size: 14px;
+}
+
+.playlist-cover div img{
+    width: 250px;
+    height: 250px;
+}
+
+.playlist-cover div:nth-of-type(1) div{
+    width: 250px;
+    height: 250px;
+    border: 0.5px #6c757d solid;
 }
 

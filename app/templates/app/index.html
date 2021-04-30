@@ -37,7 +37,7 @@
                                     <img src="{{ track.track.album.images.1.url }}" />
                                 </td>
                                 <td>
-                                    <h4 class="track-name">{{ track.track.name }}</h1>
+                                    <h5 class="track-name">{{ track.track.name }}</h5>
                                     <p class="text-muted">
                                         {% for artist in track.track.artists %}
                                             {% if not forloop.first %}
@@ -51,7 +51,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
-                <div class="show_more"><a href="/more">Show More</a></div>
+                <div class="show-more"><a href="/more">Show More</a></div>
                 <button class="btn btn-md spotify-btn">
                     <i class="fab fa-spotify"></i>
                     <a href="/add">Add to playlist</a>

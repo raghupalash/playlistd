@@ -17,7 +17,7 @@ caches_folder = "./.spotify_caches/"
 if not os.path.exists(caches_folder):
     os.makedirs(caches_folder)
 
-SCOPE = "user-library-read user-read-recently-played user-top-read"
+SCOPE = "user-library-read user-read-recently-played user-top-read playlist-modify-public"
 
 def index(request):
     if not request.session.get("uuid"):
@@ -49,12 +49,38 @@ def index(request):
 
     # Played but neither were saved or added to a playlist
     recently_played = spotify.current_user_recently_played(limit=5)["items"]
-    user_playlists = spotify.current_user_playlists()["items"]
             
     return render(request, "app/index.html", {
         "info": spotify.me(),
         "tracks": recently_played,
     })
+
+def add(request):
+    # Check if logged in
+    cache_handler = spotipy.cache_handler.CacheFileHandler(cache_path=caches_folder + request.session.get("uuid"))
+    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return redirect("/")
+    spotify = spotipy.Spotify(auth_manager=auth_manager)
+    user_id = spotify.me()["id"]
+
+
+    if request.method == "POST":
+        print(request.POST.getlist("track_id"))
+        # Create the playlist
+        playlist = spotify.user_playlist_create(user_id, "App Playlist YAY", public=True)
+        tracks_id = spotify.user_playlist_add_tracks(user_id, playlist["id"], request.POST.getlist("track_id"))
+        return HttpResponseRedirect("/add")
+
+    recently_played = spotify.current_user_recently_played(limit=5)["items"]
+    playlists = spotify.user_playlists(user_id)
+    return render(request, "app/add.html", {
+        "tracks": recently_played,
+        "playlists": playlists,
+    })
+
+
+
 
 def sign_out(request):
     try:
