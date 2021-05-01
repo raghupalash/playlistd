@@ -1,12 +1,13 @@
 {% extends 'app/layout.html' %}
+{% load static %}
 
 <!-- idea is to display the data and give the choice to select songs to be added -->
 {% block body %}
     <div class="container add-to-playlist">
         <h3 class="heading">Add Recentnly Played Songs to Playlist</h3>
-        <form action="{% url 'add' %}" method="POST">
+        <form id="recently-add-form" action="{% url 'add' %}" method="POST">
             {% csrf_token %}
-            <input type="hidden" name="playlist-name">
+            <input type="hidden" name="playlist-type" value="create" id="playlist-id">
             <table class="table table-borderless">
                 <thead>
                     <tr>
@@ -40,51 +41,43 @@
                     </tbody>
                 {% endfor %}
             </table>
+            <div class="show-more"><a href="/more">Show More</a></div>
             <button type="button" id="reveal-playlists" class="btn btn-md spotify-btn">
                 <i class="fab fa-spotify"></i>
                 Add to Playlist
             </button>
             <div class="user-playlists">
-                <h4>Add to</h4>
-                <div class="row playlist-cover">
-                    <div class="col-lg-4 col-md-6 col-sm-12" id="create">
-                        <div>
-                            <i class="fas fa-plus text-center"></i>
-                        </div>
-                        <p>Create a new playlist</p>
-                    </div>
+                <h5>Which one?</h5>
+                <button type="button" class="btn btn-md spotify-btn" id="new-playlist">New Playlist</button>
+                <div id="create-playlist-input">
+                    <input type="text" name="new-playlist-name" class="text-input" placeholder="Playlist Name">
+                    <button class="btn btn-sm spotify-btn">Create</button>
+                </div>
+                <p class="text-muted">or add to an existing one..</p>
+                <div class="row">
                     {% for playlist in playlists.items %}
-                        <div class="col-lg-4 col-md-6 col-sm-12" id="{{ plalist.name }}">
-                            <img src="{{ playlist.images.1.url }}">
-                            <p>{{ playlist.name }}</p>
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="row playlist-block">
+                                <div class="col-8">
+                                    <img src="{{ playlist.images.1.url }}">
+                                </div>
+                                <div class="col-4">
+                                    <div class="row">
+                                        <div>{{ playlist.name }}</div>
+                                    </div>
+                                    <div class="row">
+                                        <button type="button" class="btn btn-sm spotify-btn playlist-add-btn" id="{{ playlist.id }}">Add</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     {% endfor %}
-                </div>
+                </div>                    
             </div>
         </form>
     </div>
 {% endblock %}
 
 {% block script %}
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            playlists = document.querySelector('.user-playlists')
-            button = document.querySelector('#reveal-playlists')
-
-            button.style.display = 'block';
-            playlists.style.display = 'none';
-
-            button.onclick = () => {
-                // Hide button
-                button.style.display = 'none';
-
-                // Show user playlists
-                playlists.style.display = 'block'
-            }
-
-            playlists.querySelector('div').onclick = e => {
-                
-            }
-        })
-    </script>
+    <script src="{% static 'app/add.js' %}"></script>
 {% endblock %}

@@ -15,6 +15,14 @@
         <link rel="stylesheet" href="{% static 'app/styles.css' %}">
     </head>
     <body id="body">
+        {% if messages %}
+                {% for message in messages %}
+                    <div {% if message.tags %} class="alert alert-{{ message.tags }}" {% endif %} role="alert">
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+        {% endif %}
+
         {% block body %}
         {% endblock %}
 

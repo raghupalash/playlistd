@@ -1,13 +1,18 @@
 import os
 import uuid
 from django.http.response import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
+from django.contrib.messages import constants
 from django.shortcuts import render, redirect
 import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import pprint
 from operator import itemgetter
 
-
+MESSAGE_TAGS = {
+    constants.ERROR: '',
+    40: 'danger'
+}
 
 os.environ["SPOTIPY_CLIENT_ID"] = "72de6f3abdc24383a58e4b56cfb14e14"
 os.environ["SPOTIPY_CLIENT_SECRET"] = "f5f9fbe5d9a64d11896e7dc42bd901ed"
@@ -55,7 +60,8 @@ def index(request):
         "tracks": recently_played,
     })
 
-def add(request):
+def add(request, **kwargs):
+    print(MESSAGE_TAGS)
     # Check if logged in
     cache_handler = spotipy.cache_handler.CacheFileHandler(cache_path=caches_folder + request.session.get("uuid"))
     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
@@ -64,12 +70,28 @@ def add(request):
     spotify = spotipy.Spotify(auth_manager=auth_manager)
     user_id = spotify.me()["id"]
 
-
     if request.method == "POST":
-        print(request.POST.getlist("track_id"))
-        # Create the playlist
-        playlist = spotify.user_playlist_create(user_id, "App Playlist YAY", public=True)
+        # Server-side validation if no songs were chosen
+        if not request.POST.getlist("track_id"):
+            message = "You have to choose atleast one song, c'mon!"
+            print(messages.ERROR)
+            messages.add_message(request, messages.ERROR, message)
+            return HttpResponseRedirect("/add")
+
+        # Create the playlist or retrive it if name given
+        if request.POST["playlist-type"] == "create":
+            # For creating new playlist
+            playlist = spotify.user_playlist_create(user_id, request.POST["new-playlist-name"], public=True)
+            message = "New playlist made, enjoy!"
+        else:
+            # For adding in existing playlist
+            playlist = spotify.user_playlist(user_id, request.POST["playlist-type"])
+            message = "Recents were added to the playlist, enjoy!"
+
         tracks_id = spotify.user_playlist_add_tracks(user_id, playlist["id"], request.POST.getlist("track_id"))
+
+        # Success
+        messages.success(request, message)
         return HttpResponseRedirect("/add")
 
     recently_played = spotify.current_user_recently_played(limit=5)["items"]

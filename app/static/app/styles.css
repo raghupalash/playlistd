@@ -22,10 +22,10 @@ a:hover {
 .spotify-btn {
     background-color: #1DB954;
     border-radius: 30px;
+    color: white;
 }
 
 .landing {
-    background: #1A1515;
     height: 100%;
 }
 
@@ -60,6 +60,10 @@ a:hover {
 .rest-of-the-page td {
     padding-left: 0;
     padding-right: 0;
+}
+
+.rest-of-the-page tr td:nth-of-type(1) {
+    width: 20%;
 }
 
 
@@ -104,14 +108,45 @@ a:hover {
     font-size: 14px;
 }
 
-.playlist-cover div img{
-    width: 250px;
-    height: 250px;
+.user-playlists img {
+    width: 140px;
+    height: 140px;
 }
 
-.playlist-cover div:nth-of-type(1) div{
-    width: 250px;
-    height: 250px;
-    border: 0.5px #6c757d solid;
+.playlist-block {
+    margin: 20px;
 }
 
+.playlist-block div{
+    padding: 0;
+}
+
+.playlist-block div:nth-of-type(2) button{
+    margin-top: 10px;
+    padding: 5px 25px;
+    color: white;
+}
+
+.playlist-block div:nth-of-type(1) {
+    width: 20%;
+}
+
+.text-input {
+    background:#1A1515;
+    color: white;
+    border: none;
+    margin-bottom: 20px;
+}
+
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+.user-playlists h5 {
+    margin-bottom: 20px;
+}
+
+#new-playlist, #create-playlist-input, .user-playlists p:nth-of-type(1) {
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
