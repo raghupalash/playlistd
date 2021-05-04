@@ -4,8 +4,8 @@
 <!-- idea is to display the data and give the choice to select songs to be added -->
 {% block body %}
     <div class="container add-to-playlist">
-        <h3 class="heading">Add Recentnly Played Songs to Playlist</h3>
-        <form id="recently-add-form" action="{% url 'add' %}" method="POST">
+        <h3 class="heading">Add {{ type|capfirst }} Songs to Playlist</h3>
+        <form id="recently-add-form" action="{% url 'add' type=type %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="playlist-type" value="create" id="playlist-id">
             <table class="table table-borderless">
@@ -41,7 +41,7 @@
                     </tbody>
                 {% endfor %}
             </table>
-            <div class="show-more"><a href="/more">Show More</a></div>
+            <div class="show-more"><a href="{% url 'show_more' type=type limit=tracks|length %}">Show More</a></div>
             <button type="button" id="reveal-playlists" class="btn btn-md spotify-btn">
                 <i class="fab fa-spotify"></i>
                 Add to Playlist

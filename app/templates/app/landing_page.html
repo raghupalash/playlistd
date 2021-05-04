@@ -5,8 +5,15 @@
         <div class="container">
             <div class="d-flex justify-content-center align-items-center">
                 <h1>Playlistd</h1>
-                <button class="btn spotify-btn"><a href="{{ auth_url }}">Sign in</a></button>
+                <div>
+                    <button class="btn btn-md spotify-btn">
+                        <i class="fab fa-spotify"></i>
+                        <a href="{{ auth_url }}">Sign In</a>
+                    </button>
+                </div>
+                
             </div>
         </div>
     </div>  
 {% endblock %}
+

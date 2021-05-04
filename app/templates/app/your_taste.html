@@ -1,0 +1,52 @@
+{% extends 'app/layout.html' %} 
+
+{% block body %}
+    <div class="container your_taste">
+        {% for best, header in best_of_all %}
+            <div class="best-singles">
+                <p class="header">{{ header }}</p>
+                <img src="{{ best.album.images.0.url }}">
+                <h4>{{ best.name }}</h4>
+                <p>
+                    {% for artist in best.artists %}
+                        {% if not forloop.first %}
+                            <span>, </span>
+                        {% endif %}
+                        <span>{{ artist.name }}</span>
+                    {% endfor %}
+                </p>
+                <div>
+                    <button class="btn btn-md spotify-btn">
+                        <i class="fab fa-spotify"></i>
+                        <a href="{{ best.external_urls.spotify }}" target="_blank">Play On Spotify</a>
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+        {% for tracks, header in top5s %}
+            <div class="top5s">
+                <p class="h4 .heading">{{ header }}</p>
+                <div class=" row row-cols-3">
+                {% for track in tracks %}
+                    <div class="col-sm-6 col-lg-4 col-md-6">
+                        <div class="card">
+                            <div style="margin:10px;"><img class="card-img-top " src="{{ track.album.images.1.url }}" alt="Card image cap"></div>
+                            <div class="card-body">
+                                <h6>{{ track.name }}</h6>
+                                <p class="text-muted">
+                                    {% for artist in track.artists %}
+                                    {% if not forloop.first %}
+                                        <span>, </span>
+                                    {% endif %}
+                                    <span>{{ artist.name }}</span>
+                                {% endfor %}
+                                </p>
+                            </div>
+                        </div>
+                </div>
+                {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

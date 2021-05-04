@@ -1,4 +1,5 @@
 body, html {
+    margin: 0;
     height: 100%;
     font-family: 'Poppins', sans-serif;
     color: white;
@@ -63,7 +64,7 @@ a:hover {
 }
 
 .rest-of-the-page tr td:nth-of-type(1) {
-    width: 20%;
+    width: 15%;
 }
 
 
@@ -124,7 +125,6 @@ a:hover {
 .playlist-block div:nth-of-type(2) button{
     margin-top: 10px;
     padding: 5px 25px;
-    color: white;
 }
 
 .playlist-block div:nth-of-type(1) {
@@ -142,6 +142,9 @@ input:focus, textarea:focus, select:focus{
     outline: none;
 }
 
+.user-playlists {
+    margin: 30px 0;
+}
 .user-playlists h5 {
     margin-bottom: 20px;
 }
@@ -149,4 +152,88 @@ input:focus, textarea:focus, select:focus{
 #new-playlist, #create-playlist-input, .user-playlists p:nth-of-type(1) {
     margin-bottom: 20px;
     margin-left: 20px;
+}
+
+#liked_tracks {
+    margin-top: 50px;
+}
+
+#body .navbar-dark .navbar-nav .nav-link{
+    color: white;
+}
+
+.rest-of-the-page button {
+    margin: 20px 0;
+}
+
+.best-singles {
+    height: 100%;
+    margin: 60px 0 100px 0;
+    text-align: center;
+    scroll-snap-stop: always;
+}
+
+
+.best-singles img{
+    width: 300px;
+    height: 300px;
+    margin: 30px;
+}
+
+@media only screen and (max-width: 400px) {
+    .best-singles img{
+        width: 250px;
+        height: 250px;
+        margin: 30px;
+    }
+} 
+
+footer {
+    background: black;
+}
+
+.best-singles .header {
+    font-size: 35px;
+}
+
+.top5s .img {
+    width: 250px;
+    height: 250px;
+}
+
+@media only screen and (max-width: 450px) {
+    .best-singles .header {
+        font-size: 25px;
+    }
+}
+
+#body .card {
+    height:350px; 
+    width: 220px; 
+    background-color: #212121; 
+    margin:20px;
+}
+
+#body .row-cols-3 > * {
+    max-width: 100%;
+}
+
+.top5s .h4 {
+    margin-top: 50px;
+}
+
+@media only screen and (max-width: 768px) {
+    #body .col-sm-12 {
+        margin: 0 auto;
+    }
+    .top5s .img {
+        width: 300px;
+        height: 300px;
+    }
+    #body .card {
+        height: inherit;
+    }
+    .top5s .h4 {
+        font-size: 20px;
+    }
 }
