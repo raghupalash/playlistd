@@ -1,4 +1,5 @@
 import os
+import pprint
 
 caches_folder = "./.spotify_caches/"
 if not os.path.exists(caches_folder):
@@ -8,12 +9,14 @@ def session_cache_path(request):
     return caches_folder + request.session.get('uuid')
 
 def get_top_tracks(spotify):
+    data = {} # Data to be sent
     top_long_term = spotify.current_user_top_tracks(limit=5, time_range="long_term")["items"]
     top_medium_term = spotify.current_user_top_tracks(limit=1, time_range="medium_term")["items"]
     top_short_term = spotify.current_user_top_tracks(limit=5, time_range="short_term")["items"]
+    top_artists = spotify.current_user_top_artists(limit=10, time_range="medium_term")["items"]
 
     # Group data together the way it will be displayed
-    data = {} # Data to be sent
+    data["top_artists"] = top_artists
     # List of best song from each category
     best_of_all = [top_long_term[0], top_medium_term[0], top_short_term[0]]
     # Headings for the sections

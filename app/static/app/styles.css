@@ -52,7 +52,7 @@ a:hover {
     border-bottom:#1DB954 2px solid;
 }
 
-.recently_played img {
+.recently_played img, .top5s img, .top-artists img{
     height: 100px;
     width: 100px;
     
@@ -63,13 +63,13 @@ a:hover {
     padding-right: 0;
 }
 
-.rest-of-the-page tr td:nth-of-type(1) {
+.rest-of-the-page tr td:nth-of-type(1) , .top5s tr td:nth-of-type(1), .top-artists tr td:nth-of-type(1) {
     width: 15%;
 }
 
 
 @media only screen and (max-width: 995px) {
-    .recently_played img {
+    .recently_played img , .top5s img{
         height: 70px;
         width: 70px;
     }
@@ -236,4 +236,8 @@ footer {
     .top5s .h4 {
         font-size: 20px;
     }
+}
+
+.top-artists img {
+    border-radius: 100%;
 }

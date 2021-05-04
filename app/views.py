@@ -129,6 +129,7 @@ def taste(request):
     return render(request, "app/your_taste.html", {
         "best_of_all": data["best_of_all"],
         "top5s": data["top5s"],
+        "top_artists": data["top_artists"]
     })
 
 def sign_out(request):
