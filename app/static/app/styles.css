@@ -241,3 +241,26 @@ footer {
 .top-artists img {
     border-radius: 100%;
 }
+
+footer {
+    background: #191919; 
+    text-align: center; 
+    padding: 10px;
+}
+
+.icons {
+    font-size:25px; margin-bottom:5px;
+}
+
+.icons span {
+    margin:0 5px;
+    color:#1DB954;
+}
+
+.icons + p {
+    margin-top:15px;
+}
+
+.icons + p a {
+    color:#1DB954;
+}

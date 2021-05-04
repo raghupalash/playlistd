@@ -8,7 +8,7 @@ if not os.path.exists(caches_folder):
 def session_cache_path(request):
     return caches_folder + request.session.get('uuid')
 
-def get_top_tracks(spotify):
+def get_top_tracks_and_artists(spotify):
     data = {} # Data to be sent
     top_long_term = spotify.current_user_top_tracks(limit=5, time_range="long_term")["items"]
     top_medium_term = spotify.current_user_top_tracks(limit=1, time_range="medium_term")["items"]
@@ -35,3 +35,5 @@ def get_top_tracks(spotify):
 
     return data
     
+def create_or_add_to_playlist(spotify, request_type, tracks):
+    pass

@@ -10,7 +10,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import pprint
 from operator import itemgetter
-from .utils import get_top_tracks, session_cache_path
+from .utils import get_top_tracks_and_artists, session_cache_path
 
 MESSAGE_TAGS = {
     constants.ERROR: '',
@@ -125,7 +125,7 @@ def taste(request):
         return redirect("/")
 
     spotify = spotipy.Spotify(auth_manager=auth_manager)
-    data = get_top_tracks(spotify)
+    data = get_top_tracks_and_artists(spotify)
     return render(request, "app/your_taste.html", {
         "best_of_all": data["best_of_all"],
         "top5s": data["top5s"],
