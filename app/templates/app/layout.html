@@ -31,14 +31,17 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                   <div class="navbar-nav ml-auto">
                     <a class="nav-link" href="{% url 'your_taste' %}">Your Taste</a>
-                    <a class="nav-link" href="#">Playlist Magic</a>
+                    <a class="nav-link" href="{% url 'edit' %}">Edit Playlist</a>
                   </div>
                 </div>
             </nav>
         </header>
 
-        {% block body %}
-        {% endblock %}
+        <main class="main-container">
+            {% block body %}
+            {% endblock %}
+        </main>
+
         <footer>
             <p>
                 <p>Created by </p>

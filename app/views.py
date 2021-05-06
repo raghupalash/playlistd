@@ -131,6 +131,47 @@ def taste(request):
         "top_artists": data["top_artists"]
     })
 
+def edit(request, **kwargs):
+    cache_handler = spotipy.cache_handler.CacheFileHandler(cache_path=session_cache_path(request))
+    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return redirect("/")
+        
+    spotify = spotipy.Spotify(auth_manager=auth_manager)
+    user_id = spotify.me()["id"]
+
+    if request.method == "POST":
+        # Remove the tracks
+        try:
+            spotify.playlist_remove_all_occurrences_of_items(
+                request.POST["playlist_id"], 
+                request.POST.getlist("track_id")
+            )
+        except:
+            messages.error(request, "Unable to remove the tracks :-(")
+            return redirect(reverse("edit", kwargs={"id":request.POST["playlist_id"]}))
+
+    if kwargs.get("id"):
+        try:
+            results = spotify.playlist_items(kwargs.get("id"), limit=100, offset=0)
+            tracks = results["items"]
+            while results["next"]:
+                results = spotify.next(results)
+                tracks.extend(results["items"])
+            return render(request, "app/edit_tracks.html", {
+                "playlist_id": kwargs.get("id"),
+                "tracks": tracks
+            })
+        except:
+            messages.error(request, "Unable to retrieve tracks :-(")
+            return redirect(reverse("edit"))
+
+    playlists = spotify.user_playlists(user_id)
+    return render(request, "app/edit.html", {
+        "playlists": playlists["items"],
+    })
+
+
 def sign_out(request):
     try:
         # Remove the CACHE file (.cache-test) so that a new user can authorize.
