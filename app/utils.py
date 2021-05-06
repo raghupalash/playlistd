@@ -35,5 +35,34 @@ def get_top_tracks_and_artists(spotify):
 
     return data
     
-def create_or_add_to_playlist(spotify, request_type, tracks):
-    pass
+def add_to_playlist(**kwargs):
+    """ Add tracks to a playlist(new or existing) and returns a message given spotify, tracks, 
+        playlist_id(can also have a value of 'create'), user_id"""
+
+    spotify = kwargs.get("spotify")
+    # Create the playlist or retrive it if name given
+    if kwargs.get("playlist_id") == "create":
+        # Create a new playlist
+        try:
+            playlist = spotify.user_playlist_create(kwargs.get("user_id"), kwargs.get("new_playlist"), public=True)
+            playlist_id = playlist["id"]
+            message = "New playlist made, enjoy!"
+            status = "success"
+        except:
+            message = "Couldn't make new playlist, sorry :-("
+            status = "error"
+            return message, status
+    else:
+        # For adding in existing playlist
+        playlist_id = kwargs.get("playlist_id")
+        message = "Recents were added to the playlist, enjoy!"
+        status = "success"
+
+    try:
+        spotify.user_playlist_add_tracks(kwargs.get("user_id"), playlist_id, kwargs.get("tracks"))
+    except:
+        message = "Couldn't add tracks to the playlist, sorry :-("
+        status = "error"
+        
+
+    return message, status

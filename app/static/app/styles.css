@@ -166,6 +166,10 @@ input:focus, textarea:focus, select:focus{
     margin: 20px 0;
 }
 
+#reveal-playlists {
+    margin: 20px 0 50px 0;
+}
+
 .best-singles {
     height: 100%;
     margin: 60px 0 100px 0;

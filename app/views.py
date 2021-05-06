@@ -10,7 +10,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import pprint
 from operator import itemgetter
-from .utils import get_top_tracks_and_artists, session_cache_path
+from .utils import get_top_tracks_and_artists, session_cache_path, add_to_playlist
 
 MESSAGE_TAGS = {
     constants.ERROR: '',
@@ -76,24 +76,23 @@ def add(request, **kwargs):
         # Server-side validation if no songs were chosen
         if not request.POST.getlist("track_id"):
             message = "You have to choose atleast one song, c'mon!"
-            print(messages.ERROR)
             messages.add_message(request, messages.ERROR, message)
             return redirect(reverse("add", kwargs={"type": kwargs.get("type")}))
 
-        # Create the playlist or retrive it if name given
-        if request.POST["playlist-type"] == "create":
-            # For creating new playlist
-            playlist = spotify.user_playlist_create(user_id, request.POST["new-playlist-name"], public=True)
-            message = "New playlist made, enjoy!"
-        else:
-            # For adding in existing playlist
-            playlist = spotify.user_playlist(user_id, request.POST["playlist-type"])
-            message = "Recents were added to the playlist, enjoy!"
-
-        spotify.user_playlist_add_tracks(user_id, playlist["id"], request.POST.getlist("track_id"))
+        message, status = add_to_playlist(
+            spotify=spotify,
+            user_id=user_id,
+            tracks=request.POST.getlist("track_id"),
+            playlist_id=request.POST["playlist-type"],
+            new_playlist=request.POST["new-playlist-name"]
+        )
 
         # Success
-        messages.success(request, message)
+        if status == "success":
+            messages.success(request, message)
+        else:
+            messages.add_message(request, messages.ERROR, message)
+            
         return redirect(reverse("add", kwargs={"type": kwargs.get("type")}))
 
     # Set limit of songs to be fetched from api according to user input
