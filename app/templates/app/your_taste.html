@@ -23,7 +23,7 @@
                 </div>
             </div>
         {% endfor %}
-        {% for tracks, header in top5s %}
+        {% for tracks, header, type in top5s %}
             <div class="top5s">
                 <p class="h4 heading">{{ header }}</p>
                 <table class="table table-borderless">
@@ -51,9 +51,14 @@
                     </tbody>
                 </table>
             </div>
+            <div class="show-more"><a href="{% url 'show_more' type=type limit=5 %}">Show More</a></div>
+            <button class="btn btn-md spotify-btn">
+                <i class="fab fa-spotify"></i>
+                <a href="{% url 'add' type=type %}">Add to playlist</a>
+            </button>
         {% endfor %}
-        <div class="top-artists">
-            <p class="h4 heading">Your Top Artists</p>
+        <div class="top-artists top5s">
+            <p class="h4 heading">Your Top 10 Artists</p>
             <table class="table table-borderless">
                 <tbody>
                 {% for artist in top_artists %}
@@ -77,6 +82,12 @@
                 {% endfor %}
                 </tbody>
            </table>
+        </div>
+        <div class="top5s">
+            <p class="h4 heading">Your top 5 Genres</p>
+            {% for genre in genres %}
+                <h2 style="font-weight: 900">{{ genre }}</h2>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

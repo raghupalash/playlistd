@@ -10,7 +10,7 @@ import spotipy
 from spotipy.oauth2 import SpotifyOAuth
 import pprint
 from operator import itemgetter
-from .utils import get_top_tracks_and_artists, session_cache_path, add_to_playlist
+from .utils import get_top_tracks, get_top_artists_and_genres, session_cache_path, add_to_playlist
 
 MESSAGE_TAGS = {
     constants.ERROR: '',
@@ -53,7 +53,6 @@ def index(request):
     # Step 4. Signed in, display data
     spotify = spotipy.Spotify(auth_manager=auth_manager)
 
-    # Played but neither were saved or added to a playlist
     recently_played = spotify.current_user_recently_played(limit=5)["items"]
     liked_tracks = spotify.current_user_saved_tracks(limit=5)["items"]
             
@@ -106,9 +105,17 @@ def add(request, **kwargs):
     
     # Get songs according to the kwargs given
     if kwargs.get("type") == "liked":
-        tracks = spotify.current_user_saved_tracks(limit=limit)["items"]
+        results = spotify.current_user_saved_tracks(limit=limit)["items"]
+        tracks = [result["track"] for result in results]
     elif kwargs.get("type") == "recent":
-        tracks = spotify.current_user_recently_played(limit=limit)["items"]
+        results = spotify.current_user_recently_played(limit=limit)["items"]
+        tracks = [result["track"] for result in results]
+    elif kwargs.get("type") == "top_tracks_long":
+        tracks = spotify.current_user_top_tracks(limit=limit, time_range="long_term")["items"]
+        pprint.pprint(tracks)
+    elif kwargs.get("type") == "top_tracks_short":
+        tracks = spotify.current_user_top_tracks(limit=limit, time_range="short_term")["items"]
+
     playlists = spotify.user_playlists(user_id)
     return render(request, "app/add.html", {
         "tracks": tracks,
@@ -124,11 +131,18 @@ def taste(request):
         return redirect("/")
 
     spotify = spotipy.Spotify(auth_manager=auth_manager)
-    data = get_top_tracks_and_artists(spotify)
+    tracks = get_top_tracks(spotify)
+    artists = get_top_artists_and_genres(
+        spotify, 
+        time_range="medium_term",
+        artist_limit=10,
+        genre_limit=5,
+    )
     return render(request, "app/your_taste.html", {
-        "best_of_all": data["best_of_all"],
-        "top5s": data["top5s"],
-        "top_artists": data["top_artists"]
+        "best_of_all": tracks["best_of_all"],
+        "top5s": tracks["top5s"],
+        "top_artists": artists["top_artists"],
+        "genres": artists["top_genres"]
     })
 
 def edit(request, **kwargs):
@@ -171,7 +185,26 @@ def edit(request, **kwargs):
         "playlists": playlists["items"],
     })
 
+def magic(request):
+    cache_handler = spotipy.cache_handler.CacheFileHandler(cache_path=session_cache_path(request))
+    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return redirect("/")
+    
+    spotify = spotipy.Spotify(auth_manager=auth_manager)
 
+    # Recommendations on the basis of top artists
+    top_artists = get_top_artists_and_genres(
+        spotify, 
+        time_range="medium_term",
+        artist_limit=10,
+        genre_limit=5,
+    )
+
+    return redirect("/")
+    
+
+    
 def sign_out(request):
     try:
         # Remove the CACHE file (.cache-test) so that a new user can authorize.

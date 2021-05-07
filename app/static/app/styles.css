@@ -1,15 +1,17 @@
 body, html {
     margin: 0;
     height: 100%;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Lato', sans-serif;
     color: white;
     background: #1A1515;
+    font-weight: 400;
 }
 
 #profile-image {
     height: 200px;
     border-radius: 100%;
 }
+
 
 a {
     color: white;
@@ -28,6 +30,11 @@ a:hover {
 
 .landing {
     height: 100%;
+}
+
+#body .navbar-brand {
+    font-weight: 900;
+    font-style:italic;
 }
 
 .fa-chevron-down {
@@ -254,6 +261,7 @@ footer {
     background: #191919; 
     text-align: center; 
     padding: 10px;
+    margin-top: 40px;
 }
 
 .icons {

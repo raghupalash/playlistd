@@ -1,11 +1,16 @@
 {% extends 'app/layout.html' %}
+{% load static %}
 
 {% block body %}
     <div class="landing">
         <div class="container">
             <div class="d-flex flex-column justify-content-center align-items-center intro" style="height: 750px;">
                 <div class="p-2 bd-highlight">
-                    <img id="profile-image" src="{{ info.images.0.url }}" alt="profile-image">
+                    {% if info.images.0.url %}
+                        <img id="profile-image" src="{{ info.images.0.url }}" alt="profile-image">
+                    {% else %}
+                    <img id="profile-image" src="{% static 'app/profile.jpg' %}" alt="profile-image">
+                    {% endif %}
                 </div>
                 <div class="p-2 bd-highlight">
                     <h4>Hello {{ info.display_name }}!</h4>

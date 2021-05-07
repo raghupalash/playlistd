@@ -7,6 +7,7 @@ urlpatterns = [
     path('add/<str:type>/<int:limit>', views.add, name="show_more"),
     path('edit', views.edit, name="edit"),
     path('edit/<str:id>', views.edit, name="edit_playlist"),
+    path('recommendation', views.magic, name="recommendation"),
     path('your_taste', views.taste, name="your_taste"),
     path('sign_out', views.sign_out, name="sign_out")
 ]

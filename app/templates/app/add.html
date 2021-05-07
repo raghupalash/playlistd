@@ -4,7 +4,7 @@
 <!-- idea is to display the data and give the choice to select songs to be added -->
 {% block body %}
     <div class="container add-to-playlist">
-        <h3 class="heading">Add {{ type|capfirst }} Songs to Playlist</h3>
+        <h3 class="heading">Add songs to playlist</h3>
         <form id="recently-add-form" action="{% url 'add' type=type %}" method="POST">
             {% csrf_token %}
             <input type="hidden" name="playlist-type" value="create" id="playlist-id">
@@ -15,28 +15,24 @@
                         <th class="text-muted">Title</th>
                         <th class="text-muted">Artist</th>
                         <th class="text-muted mobile-hidden">Album</th>
-                        <th class="text-muted mobile-hidden">
-                            <i class="far fa-calendar"></i>
-                        </th>
                     </tr>
                 </thead>
                 {% for track in tracks %}
                     <tbody>
                     <tr>
                         <th scope="row">
-                            <input name="track_id" value="{{ track.track.id }}" type="checkbox" checked>
+                            <input name="track_id" value="{{ track.id }}" type="checkbox" checked>
                         </th>
-                        <td>{{ track.track.name }}</td>
+                        <td>{{ track.name }}</td>
                         <td>
-                            {% for artist in track.track.artists %}
+                            {% for artist in track.artists %}
                                 {% if not forloop.first %}
                                     <span>, </span>
                                 {% endif %}
                                 <span>{{ artist.name }}</span>
                             {% endfor %}
                         </td>
-                        <td class="mobile-hidden">{{ track.track.album.name }}</td>
-                        <td class="mobile-hidden text-small">{{ track.played_at|slice:":10" }}</td>
+                        <td class="mobile-hidden">{{ track.album.name }}</td>
                     </tr>
                     </tbody>
                 {% endfor %}
