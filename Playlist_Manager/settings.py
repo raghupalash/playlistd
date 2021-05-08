@@ -25,7 +25,10 @@ SECRET_KEY = 'a0635701adbb6480c0971e6c686f21fd24ddb03c95cb806b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['playlistd.herokuapp.com']
+ALLOWED_HOSTS = [
+    'playlistd.herokuapp.com',
+    '127.0.0.1',
+]
 
 
 # Application definition

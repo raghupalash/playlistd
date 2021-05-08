@@ -3,16 +3,22 @@
 {% block body %}
     <div class="landing">
         <div class="container">
-            <div class="d-flex justify-content-center align-items-center">
-                <h1>Playlistd</h1>
-                <div>
-                    <button class="btn btn-md spotify-btn">
-                        <i class="fab fa-spotify"></i>
-                        <a href="{{ auth_url }}">Sign In</a>
-                    </button>
+                <div class="heading " style="margin: 20px 0;">
+                    <span class="h1" style="font-weight:900;">Playlistd</h1>
+                    <span>
+                        <button class="btn btn-md spotify-btn">
+                            <i class="fab fa-spotify"></i>
+                            <a href="{{ auth_url }}">Sign In</a>
+                        </button>
+                    </span>
                 </div>
-                
-            </div>
+                <div>
+                    <div class="h5" style="font-weight:400; margin: 20px 0;">See your music taste summerised in "your taste" section</div>
+                    <div class="h5" style="font-weight:400; margin: 20px 0 170px 0;">
+                        Making playlists out of your recent and liked songs is easy here, 
+                        unlike Spotify, you can select multiple songs!
+                    </div>
+                </div>         
         </div>
     </div>  
 {% endblock %}
