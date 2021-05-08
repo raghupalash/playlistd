@@ -1,0 +1,1 @@
+web: gunicorn Playlist_Manager.wsgi
