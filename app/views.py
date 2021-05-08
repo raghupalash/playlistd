@@ -186,6 +186,7 @@ def edit(request, **kwargs):
     })
 
 def magic(request):
+    """ Currently not in function """
     cache_handler = spotipy.cache_handler.CacheFileHandler(cache_path=session_cache_path(request))
     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
     if not auth_manager.validate_token(cache_handler.get_cached_token()):
@@ -194,15 +195,25 @@ def magic(request):
     spotify = spotipy.Spotify(auth_manager=auth_manager)
 
     # Recommendations on the basis of top artists
-    top_artists = get_top_artists_and_genres(
-        spotify, 
-        time_range="medium_term",
-        artist_limit=10,
-        genre_limit=5,
-    )
+    top_artists_genres = []
+    time_ranges = ["long_term", "medium_term", "short_term"]
+    for time_range in time_ranges:
+        top_artists_genres.append(get_top_artists_and_genres(
+            spotify, 
+            time_range=time_ranges,
+            artist_limit=10,
+            genre_limit=5,
+        ))
+    top_artists = []
+    top_genres = []
+    for item in top_artists_genres:
+        top_artists.extend(item["top_artists"])
 
-    return redirect("/")
-    
+    top_artists_id = [artists["id"] for artists in top_artists][:5]
+    recommendation = [] # 6 element on list (3 for artists, 3 for genres)
+    recommendation.extend(spotify.recommendations(seed_artists=top_artists_id, limit=5))
+    print(recommendation[0])
+    return redirect("/")    
 
     
 def sign_out(request):

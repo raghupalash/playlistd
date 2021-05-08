@@ -43,7 +43,6 @@ def get_top_artists_and_genres(spotify, time_range, artist_limit, genre_limit):
     genres = []
     offset = 0
 
-    time_ranges = ["long_term", "medium_term", "short_term"] # For 'all'
     while True:
         result = spotify.current_user_top_artists(limit=50, time_range=time_range, offset=offset)["items"]
         if not result: 
@@ -98,3 +97,4 @@ def add_to_playlist(**kwargs):
         
 
     return message, status
+
