@@ -1,0 +1,282 @@
+body, html {
+    margin: 0;
+    height: 100%;
+    font-family: 'Lato', sans-serif;
+    color: white;
+    background: #1A1515;
+    font-weight: 400;
+}
+
+#profile-image {
+    height: 200px;
+    border-radius: 100%;
+}
+
+
+a {
+    color: white;
+}
+
+a:hover {
+    color: white;
+    text-decoration: white;
+}
+
+.spotify-btn {
+    background-color: #1DB954;
+    border-radius: 30px;
+    color: white;
+}
+
+.landing {
+    height: 100%;
+}
+
+#body .navbar-brand {
+    font-weight: 900;
+    font-style:italic;
+}
+
+.fa-chevron-down {
+    padding-top: 10px;
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+ 
+::-webkit-scrollbar-thumb {
+    background: #1DB954;
+}
+
+::-webkit-scrollbar-track {
+    background:#1A1515;
+}
+
+.heading {
+    padding: 15px 0;
+    margin-bottom: 15px;
+    border-bottom:#1DB954 2px solid;
+}
+
+.recently_played img, .top5s img, .top-artists img{
+    height: 100px;
+    width: 100px;
+    
+}
+
+.rest-of-the-page td {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.rest-of-the-page tr td:nth-of-type(1) , .top5s tr td:nth-of-type(1), .top-artists tr td:nth-of-type(1) {
+    width: 15%;
+}
+
+
+@media only screen and (max-width: 995px) {
+    .recently_played img , .top5s img{
+        height: 70px;
+        width: 70px;
+    }
+    .track-name {
+        font-size: 16px;
+        margin: 0;
+    }
+    .rest-of-the-page td {
+        padding: 5px;
+    }
+    .mobile-hidden {
+        display: none;
+    }
+    .add-to-playlist {
+        font-size: 14px;
+    }
+}
+
+.recently_played .row {
+    margin: 30px 0;
+}
+
+.table {
+    color: white;
+}
+
+.show-more {
+    text-decoration: underline;
+    margin: 5px 0;
+}
+
+.add-to-playlist tbody tr{
+    border-top: 0.5px #6c757d solid;
+}
+
+#body .text-small {
+    font-size: 14px;
+}
+
+.user-playlists img {
+    width: 140px;
+    height: 140px;
+}
+
+.playlist-block {
+    margin: 20px;
+}
+
+.playlist-block div{
+    padding: 0;
+}
+
+.playlist-block div:nth-of-type(2) button{
+    margin-top: 10px;
+    padding: 5px 25px;
+}
+
+.playlist-block div:nth-of-type(1) {
+    width: 20%;
+}
+
+.text-input {
+    background:#1A1515;
+    color: white;
+    border: none;
+    margin-bottom: 20px;
+}
+
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+.user-playlists {
+    margin: 30px 0;
+}
+.user-playlists h5 {
+    margin-bottom: 20px;
+}
+
+#new-playlist, #create-playlist-input, .user-playlists p:nth-of-type(1) {
+    margin-bottom: 20px;
+    margin-left: 20px;
+}
+
+#liked_tracks {
+    margin-top: 50px;
+}
+
+#body .navbar-dark .navbar-nav .nav-link{
+    color: white;
+}
+
+.rest-of-the-page button {
+    margin: 20px 0;
+}
+
+#reveal-playlists {
+    margin: 20px 0 50px 0;
+}
+
+.best-singles {
+    height: 100%;
+    margin: 60px 0 100px 0;
+    text-align: center;
+    scroll-snap-stop: always;
+}
+
+
+.best-singles img{
+    width: 300px;
+    height: 300px;
+    margin: 30px;
+}
+
+@media only screen and (max-width: 400px) {
+    .best-singles img{
+        width: 250px;
+        height: 250px;
+        margin: 30px;
+    }
+} 
+
+footer {
+    position:relative;
+    bottom:0;
+    width:100%;
+    height:250px;   /* Height of the footer */
+    background: black;
+}
+
+.best-singles .header {
+    font-size: 35px;
+}
+
+.top5s .img {
+    width: 250px;
+    height: 250px;
+}
+
+@media only screen and (max-width: 450px) {
+    .best-singles .header {
+        font-size: 25px;
+    }
+}
+
+#body .card {
+    height:350px; 
+    width: 220px; 
+    background-color: #212121; 
+    margin:20px;
+}
+
+#body .row-cols-3 > * {
+    max-width: 100%;
+}
+
+.top5s .h4 {
+    margin-top: 50px;
+}
+
+@media only screen and (max-width: 768px) {
+    #body .col-sm-12 {
+        margin: 0 auto;
+    }
+    .top5s .img {
+        width: 300px;
+        height: 300px;
+    }
+    #body .card {
+        height: inherit;
+    }
+    .top5s .h4 {
+        font-size: 20px;
+    }
+}
+
+.top-artists img {
+    border-radius: 100%;
+}
+
+footer {
+    background: #191919; 
+    text-align: center; 
+    padding: 10px;
+    margin-top: 40px;
+}
+
+.icons {
+    font-size:25px; margin-bottom:5px;
+}
+
+.icons span {
+    margin:0 5px;
+    color:#1DB954;
+}
+
+.icons + p {
+    margin-top:15px;
+}
+
+.icons + p a {
+    color:#1DB954;
+}
