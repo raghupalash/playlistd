@@ -28,76 +28,93 @@
             </div>
         </div>
     </div>
-    <div class="rest-of-the-page">
-        <div class="container">
-            <div class="recently_played" id="recently_played">
-                <div class="heading">
-                    <span class="h3">Recently Played</span>
+    <div class="container your_taste">
+        {% for best, header in best_of_all %}
+            <div class="best-singles">
+                <p class="header">{{ header }}</p>
+                <img src="{{ best.album.images.0.url }}">
+                <h4>{{ best.name }}</h4>
+                <p>
+                    {% for artist in best.artists %}
+                        {% if not forloop.first %}
+                            <span>, </span>
+                        {% endif %}
+                        <span>{{ artist.name }}</span>
+                    {% endfor %}
+                </p>
+                <div>
+                    <button class="btn btn-md spotify-btn">
+                        <i class="fab fa-spotify"></i>
+                        <a href="{{ best.external_urls.spotify }}" target="_blank">Play On Spotify</a>
+                    </button>
                 </div>
-                <hr>
+            </div>
+        {% endfor %}
+        {% for tracks, header, type in top5s %}
+            <div class="top5s">
+                <p class="h4 heading">{{ header }}</p>
                 <table class="table table-borderless">
                     <tbody>
-                        {% for track in recently_played %}
-                            <tr>
-                                <td>
-                                    <img src="{{ track.track.album.images.1.url }}" />
-                                </td>
-                                <td>
-                                    <h5 class="track-name">{{ track.track.name }}</h5>
-                                    <p class="text-muted">
-                                        {% for artist in track.track.artists %}
-                                            {% if not forloop.first %}
-                                                <span>, </span>
-                                            {% endif %}
-                                            <span>{{ artist.name }}</span>
-                                        {% endfor %}
-                                    </p>
-                                </td>
-                            </tr>
-                        {% endfor %}
+                    {% for track in tracks %}
+                    <div class="col-sm-6 col-lg-4 col-md-6">
+                        <tr>
+                            <td>
+                                <img src="{{ track.album.images.1.url }}" />
+                            </td>
+                            <td>
+                                <h5 class="track-name">{{ track.name }}</h5>
+                                <p class="text-muted">
+                                    {% for artist in track.artists %}
+                                        {% if not forloop.first %}
+                                            <span>, </span>
+                                        {% endif %}
+                                        <span>{{ artist.name }}</span>
+                                    {% endfor %}
+                                </p>
+                            </td>
+                        </tr>
+                    </div>
+                    {% endfor %}
                     </tbody>
                 </table>
-                <div class="show-more"><a href="{% url 'show_more' type='recent' limit=5 %}">Show More</a></div>
-                <button class="btn btn-md spotify-btn">
-                    <i class="fab fa-spotify"></i>
-                    <a href="{% url 'add' type='recent' %}">Add to playlist</a>
-                </button>
-            </div>        
+            </div>
+            <div class="show-more"><a href="{% url 'show_more' type=type limit=5 %}">Show More</a></div>
+            <button class="btn btn-md spotify-btn">
+                <i class="fab fa-spotify"></i>
+                <a href="{% url 'add' type=type %}">Add to playlist</a>
+            </button>
+        {% endfor %}
+        <div class="top-artists top5s">
+            <p class="h4 heading">Your Top 10 Artists</p>
+            <table class="table table-borderless">
+                <tbody>
+                {% for artist in top_artists %}
+                    <div class="col-sm-6 col-lg-4 col-md-6">
+                        <tr>
+                            <td><img src="{{ artist.images.1.url }}" /></td>
+                            <td>
+                                <h5 class="artist-name">{{ artist.name }}</h5>
+                                <div>Followers: {{ artist.followers.total }}</div>
+                                <p class="text-muted text-small">
+                                    {% for genre in artist.genres|slice:":4" %}
+                                        {% if not forloop.first %}
+                                            <span>, </span>
+                                        {% endif %}
+                                        <span>{{ genre }}</span>
+                                    {% endfor %}
+                                </p>
+                            </td>
+                        </tr>
+                    </div>
+                {% endfor %}
+                </tbody>
+           </table>
         </div>
-        <div class="container">
-            <div class="recently_played" id="liked_tracks">
-                <div class="heading">
-                    <span class="h3">Your Liked Tracks</span>
-                </div>
-                <hr>
-                <table class="table table-borderless">
-                    <tbody>
-                        {% for track in liked_tracks %}
-                            <tr>
-                                <td>
-                                    <img src="{{ track.track.album.images.1.url }}" />
-                                </td>
-                                <td>
-                                    <h5 class="track-name">{{ track.track.name }}</h5>
-                                    <p class="text-muted">
-                                        {% for artist in track.track.artists %}
-                                            {% if not forloop.first %}
-                                                <span>, </span>
-                                            {% endif %}
-                                            <span>{{ artist.name }}</span>
-                                        {% endfor %}
-                                    </p>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-                <div class="show-more"><a href="{% url 'show_more' type='liked' limit=5 %}">Show More</a></div>
-                <button class="btn btn-md spotify-btn">
-                    <i class="fab fa-spotify"></i>
-                    <a href="{% url 'add' type='liked' %}">Add to playlist</a>
-                </button>
-            </div>        
+        <div class="top5s">
+            <p class="h4 heading">Your top 5 Genres</p>
+            {% for genre in genres %}
+                <h2 style="font-weight: 900">{{ genre }}</h2>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}
