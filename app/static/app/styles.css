@@ -105,7 +105,7 @@ a:hover {
 
 .show-more {
     text-decoration: underline;
-    margin: 5px 0;
+    margin: 10px 0;
 }
 
 .add-to-playlist tbody tr{
@@ -179,11 +179,14 @@ input:focus, textarea:focus, select:focus{
 
 .best-singles {
     height: 100%;
-    margin: 60px 0 100px 0;
+    margin: 120px 0;
     text-align: center;
     scroll-snap-stop: always;
 }
 
+.best-singles:nth-of-type(1) {
+    margin-top: 60px;
+}
 
 .best-singles img{
     width: 300px;

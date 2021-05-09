@@ -19,7 +19,7 @@ MESSAGE_TAGS = {
 
 os.environ["SPOTIPY_CLIENT_ID"] = "72de6f3abdc24383a58e4b56cfb14e14"
 os.environ["SPOTIPY_CLIENT_SECRET"] = "f5f9fbe5d9a64d11896e7dc42bd901ed"
-os.environ["SPOTIPY_REDIRECT_URI"] = "https://playlistd.herokuapp.com/"
+os.environ["SPOTIPY_REDIRECT_URI"] = "http://127.0.0.1:8000/"
 
 
 
@@ -53,13 +53,21 @@ def index(request):
     # Step 4. Signed in, display data
     spotify = spotipy.Spotify(auth_manager=auth_manager)
 
-    recently_played = spotify.current_user_recently_played(limit=5)["items"]
-    liked_tracks = spotify.current_user_saved_tracks(limit=5)["items"]
-            
+
+    # from your taste
+    tracks = get_top_tracks(spotify)
+    artists = get_top_artists_and_genres(
+        spotify, 
+        time_range="medium_term",
+        artist_limit=10,
+        genre_limit=5,
+    )
     return render(request, "app/index.html", {
         "info": spotify.me(),
-        "recently_played": recently_played,
-        "liked_tracks": liked_tracks
+        "best_of_all": tracks["best_of_all"],
+        "top5s": tracks["top5s"],
+        "top_artists": artists["top_artists"],
+        "genres": artists["top_genres"]
     })
 
 def add(request, **kwargs):
@@ -131,18 +139,12 @@ def taste(request):
         return redirect("/")
 
     spotify = spotipy.Spotify(auth_manager=auth_manager)
-    tracks = get_top_tracks(spotify)
-    artists = get_top_artists_and_genres(
-        spotify, 
-        time_range="medium_term",
-        artist_limit=10,
-        genre_limit=5,
-    )
+    recently_played = spotify.current_user_recently_played(limit=5)["items"]
+    liked_tracks = spotify.current_user_saved_tracks(limit=5)["items"]
+
     return render(request, "app/your_taste.html", {
-        "best_of_all": tracks["best_of_all"],
-        "top5s": tracks["top5s"],
-        "top_artists": artists["top_artists"],
-        "genres": artists["top_genres"]
+        "recently_played": recently_played,
+        "liked_tracks": liked_tracks
     })
 
 def edit(request, **kwargs):

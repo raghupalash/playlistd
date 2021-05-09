@@ -86,7 +86,7 @@ def add_to_playlist(**kwargs):
     else:
         # For adding in existing playlist
         playlist_id = kwargs.get("playlist_id")
-        message = "Recents were added to the playlist, enjoy!"
+        message = "Songs were added to the playlist, enjoy!"
         status = "success"
 
     try:

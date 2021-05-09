@@ -1,0 +1,76 @@
+{% extends 'app/layout.html' %} 
+
+{% block body %}
+    <div class="rest-of-the-page">
+        <div class="container">
+            <div class="recently_played" id="recently_played">
+                <div class="heading">
+                    <span class="h3">Recently Played</span>
+                </div>
+                <hr>
+                <table class="table table-borderless">
+                    <tbody>
+                        {% for track in recently_played %}
+                            <tr>
+                                <td>
+                                    <img src="{{ track.track.album.images.1.url }}" />
+                                </td>
+                                <td>
+                                    <h5 class="track-name">{{ track.track.name }}</h5>
+                                    <p class="text-muted">
+                                        {% for artist in track.track.artists %}
+                                            {% if not forloop.first %}
+                                                <span>, </span>
+                                            {% endif %}
+                                            <span>{{ artist.name }}</span>
+                                        {% endfor %}
+                                    </p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="show-more"><a href="{% url 'show_more' type='recent' limit=5 %}">Show More</a></div>
+                <button class="btn btn-md spotify-btn">
+                    <i class="fab fa-spotify"></i>
+                    <a href="{% url 'add' type='recent' %}">Add to playlist</a>
+                </button>
+            </div>        
+        </div>
+        <div class="container">
+            <div class="recently_played" id="liked_tracks">
+                <div class="heading">
+                    <span class="h3">Your Liked Tracks</span>
+                </div>
+                <hr>
+                <table class="table table-borderless">
+                    <tbody>
+                        {% for track in liked_tracks %}
+                            <tr>
+                                <td>
+                                    <img src="{{ track.track.album.images.1.url }}" />
+                                </td>
+                                <td>
+                                    <h5 class="track-name">{{ track.track.name }}</h5>
+                                    <p class="text-muted">
+                                        {% for artist in track.track.artists %}
+                                            {% if not forloop.first %}
+                                                <span>, </span>
+                                            {% endif %}
+                                            <span>{{ artist.name }}</span>
+                                        {% endfor %}
+                                    </p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div class="show-more"><a href="{% url 'show_more' type='liked' limit=5 %}">Show More</a></div>
+                <button class="btn btn-md spotify-btn">
+                    <i class="fab fa-spotify"></i>
+                    <a href="{% url 'add' type='liked' %}">Add to playlist</a>
+                </button>
+            </div>        
+        </div>
+    </div>
+{% endblock %}
