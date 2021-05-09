@@ -31,7 +31,7 @@
     <div class="container your_taste">
         {% for best, header in best_of_all %}
             <div class="best-singles">
-                <p class="header" style="font-size:30px;">{{ header }}</p>
+                <p class="header">{{ header }}</p>
                 <img src="{{ best.album.images.0.url }}">
                 <h4>{{ best.name }}</h4>
                 <p>

@@ -55,13 +55,21 @@ def index(request):
 
 
     # from your taste
-    tracks = get_top_tracks(spotify)
-    artists = get_top_artists_and_genres(
-        spotify, 
-        time_range="medium_term",
-        artist_limit=10,
-        genre_limit=5,
-    )
+    try:
+        tracks = get_top_tracks(spotify)
+    except:
+        tracks = None
+
+    try:
+        artists = get_top_artists_and_genres(
+            spotify, 
+            time_range="medium_term",
+            artist_limit=10,
+            genre_limit=5,
+        )
+    except:
+        artists = None
+
     return render(request, "app/index.html", {
         "info": spotify.me(),
         "best_of_all": tracks["best_of_all"],
@@ -142,7 +150,7 @@ def taste(request):
     recently_played = spotify.current_user_recently_played(limit=5)["items"]
     liked_tracks = spotify.current_user_saved_tracks(limit=5)["items"]
 
-    return render(request, "app/your_taste.html", {
+    return render(request, "app/playlists.html", {
         "recently_played": recently_played,
         "liked_tracks": liked_tracks
     })
