@@ -8,6 +8,6 @@ urlpatterns = [
     path('edit', views.edit, name="edit"),
     path('edit/<str:id>', views.edit, name="edit_playlist"),
     path('recommendation', views.magic, name="recommendation"),
-    path('your_taste', views.taste, name="your_taste"),
+    path('playlist', views.playlist, name="playlist"),
     path('sign_out', views.sign_out, name="sign_out")
 ]

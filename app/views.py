@@ -19,7 +19,7 @@ MESSAGE_TAGS = {
 
 os.environ["SPOTIPY_CLIENT_ID"] = "72de6f3abdc24383a58e4b56cfb14e14"
 os.environ["SPOTIPY_CLIENT_SECRET"] = "f5f9fbe5d9a64d11896e7dc42bd901ed"
-os.environ["SPOTIPY_REDIRECT_URI"] = "https://playlistd.herokuapp.com/"
+os.environ["SPOTIPY_REDIRECT_URI"] = "http://127.0.0.1:8000/"
 
 
 
@@ -139,7 +139,7 @@ def add(request, **kwargs):
         "playlists": playlists,
     })
 
-def taste(request):
+def playlist(request):
     # Check if logged in 
     cache_handler = spotipy.cache_handler.CacheFileHandler(cache_path=session_cache_path(request))
     auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
