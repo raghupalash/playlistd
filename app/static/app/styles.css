@@ -220,6 +220,7 @@ input:focus, textarea:focus, select:focus{
 
 .best-singles .header {
     font-size: 35px;
+    font-weight: 700;
 }
 
 .top5s .img {
@@ -229,7 +230,7 @@ input:focus, textarea:focus, select:focus{
 
 @media only screen and (max-width: 450px) {
     .best-singles .header {
-        font-size: 25px;
+        font-size: 30px;
     }
 }
 
@@ -244,8 +245,16 @@ input:focus, textarea:focus, select:focus{
     max-width: 100%;
 }
 
-.top5s .h4 {
+.top5s .heading {
     margin-top: 50px;
+}
+
+.your_taste .spotify-btn {
+    margin-top: 10px;
+}
+
+.your_taste {
+    margin-bottom: 50px;
 }
 
 @media only screen and (max-width: 768px) {
@@ -258,9 +267,6 @@ input:focus, textarea:focus, select:focus{
     }
     #body .card {
         height: inherit;
-    }
-    .top5s .h4 {
-        font-size: 20px;
     }
 }
 
