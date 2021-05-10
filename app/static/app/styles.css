@@ -9,7 +9,7 @@ body, html {
 
 #main-container {
     min-height: 100%;
-    padding-bottom: 250px;
+    padding-bottom: 300px;
 }
 
 #profile-image {
@@ -280,8 +280,8 @@ footer {
     padding: 10px;
     margin-top: 40px;
     width:100%;
-    height:250px;
-    margin-top: -250px
+    height:300px;
+    margin-top: -300px;
 }
 
 .icons {
@@ -309,4 +309,9 @@ footer {
 .footer-nav > div {
     border-left:#1DB954 3px solid;
     padding-left: 10px;
+}
+
+.thanks {
+    font-family: 'Amatic SC', cursive;
+    font-weight: 400;
 }
