@@ -58,7 +58,8 @@ def index(request):
     try:
         tracks = get_top_tracks(spotify)
     except:
-        tracks = None
+        return HttpResponse("<h1>You havn't been on Spotify long enough to find this website useful, I hate seeing you go :-(</h1>")
+
 
     try:
         artists = get_top_artists_and_genres(
@@ -68,7 +69,7 @@ def index(request):
             genre_limit=5,
         )
     except:
-        artists = None
+        return HttpResponse("<h1>You havn't been on Spotfiy long enough to find this website useful, I hate seeing you go :-(</h1>")
 
     return render(request, "app/index.html", {
         "info": spotify.me(),
