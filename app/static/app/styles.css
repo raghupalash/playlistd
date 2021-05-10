@@ -42,6 +42,16 @@ a:hover {
     font-style:italic;
 }
 
+#body .dropdown-menu {
+    background-color: #1A1515;
+    border-left:#1DB954 2px solid;
+    border-radius: 0;
+}
+
+#body .dropdown-item {
+    color: white;
+}
+
 .fa-chevron-down {
     padding-top: 10px;
 }
@@ -110,7 +120,6 @@ a:hover {
 
 .show-more {
     text-decoration: underline;
-    margin: 8px 0;
 }
 
 .add-to-playlist tbody tr{

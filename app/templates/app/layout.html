@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_tags %}
 
 <!DOCTYPE html>
 <html>
@@ -34,7 +35,15 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                   <div class="navbar-nav ml-auto">
-                    <a class="nav-link" href="{% url 'playlist' %}">Make Playlist</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Make Playlist
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="{% playlist 'playlist' 'recently_played' %}">Recently Played</a>
+                          <a class="dropdown-item" href="{% playlist 'playlist' 'liked_tracks' %}">Liked Songs</a>
+                        </div>
+                      </li>
                     <a class="nav-link" href="{% url 'edit' %}">Edit Playlists</a>
                   </div>
                 </div>
