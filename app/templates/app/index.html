@@ -116,5 +116,19 @@
                 <h2 style="font-weight: 900">{{ genre }}</h2>
             {% endfor %}
         </div>
+        <div class="footer-nav">
+            <h5>You can also:</h5>
+            <div>
+                <div>
+                    <a href="{% url 'playlist' %}" class="show-more">Make playlists </a>
+                    <span class="text-small text-muted">
+                        (Don't worry, it's easy!)
+                    </span>
+                </div>
+                <div>
+                    <a href="{% url 'edit' %}" class="show-more">Remove Songs from playlists </a>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

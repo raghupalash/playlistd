@@ -300,3 +300,13 @@ footer {
 .icons + p a {
     color:#1DB954;
 }
+
+.footer-nav {
+    text-align: left; 
+    margin: 50px 0;
+}
+
+.footer-nav > div {
+    border-left:#1DB954 3px solid;
+    padding-left: 10px;
+}
