@@ -137,3 +137,12 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# Unecessary folders
+api_data_structure/
+.spotify_caches/
+
+# Virtual environment
+Scripts/
+Lib/
+pyvenv.cfg
