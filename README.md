@@ -29,7 +29,9 @@ python manage.py runserver
 ```
 
 ## How this projects satisfies the requirements set by the staff?
-* This project is sufficiently distinct from the other projects in this course, it uses spotify API at it's core.
+* This project is sufficiently distinct from the other projects in this course, it uses spotify API at it's core
+..* Most of the functionality is based on interaction with spotify, nothing of this sort was in any other project
+of the course.
 * This project utilises Django with 2 models on the backend (for making api requests and other logic)
 * JavaScript is used in like functionality and also used in some buttons to hide and display certian sections.
 * This web app is completely mobile responsive(infact the design looks much better on mobile)
