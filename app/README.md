@@ -13,5 +13,27 @@ and like them (this section is not available in the online version)
 
 This project was made as a Final Project for CS50 Web Development with Python and Javascript
 
-## How to run it?
+## How to Run
+Install the required packages
+```bash
+pip install -r requirements.txt
+```
+Initailize Database
+```bash
+python manage.py makemigrations app
+python manage.py migrate
+```
+In the project root directory run the application
+```bash
+python manage.py runserver
+```
+
+## How this projects satisfies the requirements set by the staff?
+* This project is sufficiently distinct from the other projects in this course, it uses spotify API at it's core.
+* This project utilises Django with 2 models on the backend (for making api requests and other logic)
+* JavaScript is used in like functionality and also used in some buttons to hide and display certian sections.
+* This web app is completely mobile responsive(infact the design looks much better on mobile)
+
+
+
 
