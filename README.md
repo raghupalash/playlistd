@@ -42,7 +42,7 @@ of the course.
 * JavaScript is used in like functionality and also used in some buttons to hide and display certian sections.
 * This web app is completely mobile responsive(infact the design looks much better on mobile)
 
-## Project File Structure
+## Files created by me - 
 * __app__ is the main app that handels all the functionality of the website. It contains - 
   * static/app that contains all the static files -
     * styles.css that contains all our css styles.
