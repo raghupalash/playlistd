@@ -9,5 +9,7 @@ urlpatterns = [
     path('edit/<str:id>', views.edit, name="edit_playlist"),
     path('recommendation', views.magic, name="recommendation"),
     path('playlist', views.playlist, name="playlist"),
+    path('explore', views.explore, name="explore"),
+    path('like/<str:playlistID>', views.like, name="like"),
     path('sign_out', views.sign_out, name="sign_out")
 ]

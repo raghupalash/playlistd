@@ -234,17 +234,6 @@ input:focus, textarea:focus, select:focus{
     }
 }
 
-#body .card {
-    height:350px; 
-    width: 220px; 
-    background-color: #212121; 
-    margin:20px;
-}
-
-#body .row-cols-3 > * {
-    max-width: 100%;
-}
-
 .top5s .heading {
     margin-top: 50px;
 }
@@ -314,4 +303,34 @@ footer {
 .thanks {
     font-family: 'Amatic SC', cursive;
     font-weight: 400;
+}
+
+#body .card {
+    height: 350px; 
+    width: 220px; 
+    background-color: #212121; 
+    margin:20px;
+}
+
+@media only screen and (max-width:600px) {
+    #body .card {
+        margin: 20px auto;
+    }
+}
+#body .row-cols-3 > * {
+    max-width: 100%;
+}
+
+.card img {
+    width: 200px;
+    height: 200px;
+    margin: 10px;
+}
+
+.card .card-body .card-text {
+    margin-bottom: 20px;
+}
+
+#body i .fa-heart {
+    background-color:#1DB954;
 }

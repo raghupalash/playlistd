@@ -1,7 +1,7 @@
 from functools import cache
 import os
 import uuid
-from django.http.response import HttpResponse, HttpResponseRedirect
+from django.http.response import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.contrib import messages
 from django.contrib.messages import constants
 from django.shortcuts import render, redirect
@@ -11,6 +11,9 @@ from spotipy.oauth2 import SpotifyOAuth
 import pprint
 from operator import itemgetter
 from .utils import get_top_tracks, get_top_artists_and_genres, session_cache_path, add_to_playlist
+import json
+
+from .models import Playlist, User
 
 MESSAGE_TAGS = {
     constants.ERROR: '',
@@ -19,7 +22,7 @@ MESSAGE_TAGS = {
 
 os.environ["SPOTIPY_CLIENT_ID"] = "72de6f3abdc24383a58e4b56cfb14e14"
 os.environ["SPOTIPY_CLIENT_SECRET"] = "f5f9fbe5d9a64d11896e7dc42bd901ed"
-os.environ["SPOTIPY_REDIRECT_URI"] = "https://playlistd.herokuapp.com/"
+os.environ["SPOTIPY_REDIRECT_URI"] = "http://127.0.0.1:8000/"
 
 
 
@@ -52,6 +55,25 @@ def index(request):
 
     # Step 4. Signed in, display data
     spotify = spotipy.Spotify(auth_manager=auth_manager)
+
+    # Store user id in db
+    user_id = spotify.me()["id"]
+    user = User.objects.filter(user=user_id)[:1]
+    if len(user) == 0:
+        user = User(user=user_id)
+        user.save()
+        # User is a queryset
+        user = [user]
+    user = user[0]
+
+    # Get user playlists to store in db (for explore)
+    playlists = spotify.current_user_playlists()["items"]
+    for playlist in playlists:
+        if playlist["tracks"]["total"] > 3:
+            querySet = Playlist.objects.filter(playlist=playlist["id"])
+            if len(querySet) == 0:
+                playlist = Playlist(playlist=playlist["id"], user=user)
+                playlist.save()
 
 
     # from your taste
@@ -191,9 +213,10 @@ def edit(request, **kwargs):
             messages.error(request, "Unable to retrieve tracks :-(")
             return redirect(reverse("edit"))
 
-    playlists = spotify.user_playlists(user_id)
+    playlists = spotify.user_playlists(user_id)["items"]
+
     return render(request, "app/edit.html", {
-        "playlists": playlists["items"],
+        "playlists": playlists,
     })
 
 def magic(request):
@@ -226,7 +249,65 @@ def magic(request):
     print(recommendation[0])
     return redirect("/")    
 
-    
+def explore(request):
+    cache_handler = spotipy.cache_handler.CacheFileHandler(cache_path=session_cache_path(request))
+    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return redirect("/")
+
+    spotify = spotipy.Spotify(auth_manager=auth_manager)
+
+    # Could have gone with getting playlist by id, but returning tracks do(unecessary)
+    querySet = User.objects.all()
+    playlists = []
+    for item in querySet:
+        playlists.extend(spotify.user_playlists(user=item.user)["items"])
+    pprint.pprint(playlists)
+    return render(request, "app/explore.html", {
+        "playlists": playlists
+    })
+
+def like(request, playlistID):
+    cache_handler = spotipy.cache_handler.CacheFileHandler(cache_path=session_cache_path(request))
+    auth_manager = spotipy.oauth2.SpotifyOAuth(cache_handler=cache_handler)
+    if not auth_manager.validate_token(cache_handler.get_cached_token()):
+        return redirect("/")
+
+    spotify = spotipy.Spotify(auth_manager=auth_manager)
+
+    user_id = spotify.me()["id"]
+    # Get the user object
+    user = User.objects.get(user=user_id)
+    if request.method == "GET":
+        playlist = Playlist.objects.get(playlist=playlistID)
+        # Check if the user has liked the playlist
+        if user in playlist.liked_by.all():
+            likedByUser = True
+        else:
+            likedByUser = False
+        return JsonResponse({'likes': playlist.likes, 'likedByUser': likedByUser}, safe=False)
+    elif request.method == "PUT":
+        data = json.loads(request.body)
+        action = data.get("action")
+        # Getting the playlist object
+        playlist = Playlist.objects.get(playlist=playlistID)
+        if action == "liked":
+            # Incrementing the likes on the playlist
+            playlist.likes=playlist.likes+1
+            # This playlist is liked by the current user (update db)    
+            playlist.liked_by.add(user)
+        else:
+            # Decreasing the likes on the playlist
+            playlist.likes=playlist.likes-1
+            # This playlist is unliked by the current user (update db)
+            playlist.liked_by.remove(user)
+        playlist.save()
+        return HttpResponse(status=204)
+    else:
+        JsonResponse({
+            "error": "Only GET and PUT reqest are accepted"
+        }, status=400)
+
 def sign_out(request):
     try:
         # Remove the CACHE file (.cache-test) so that a new user can authorize.

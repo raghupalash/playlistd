@@ -1,0 +1,33 @@
+{% extends 'app/layout.html' %}
+{% load static %}
+
+{% block body %}
+<div class="container">
+  <div class="row row-cols-3">
+  {% for playlist in playlists %}
+    <div class="col">
+      <div class="card">
+        <img class="card-img-top" src="{{ playlist.images.1.url }}" alt="Card image cap">
+        <div class="card-body">
+          <div class="card-text">
+            <span class="h6">{{ playlist.name }}</span>
+            <span class="like" data-id="{{ playlist.id }}" style="margin-left: 10px;">
+              <i class="far fa-heart"></i>
+              <span class="text-muted">0</span>
+            </span>
+          </div>
+          <button class="btn btn-md spotify-btn">
+            <i class="fab fa-spotify"></i>
+            <a href="{{ playlist.external_urls.spotify }}" target="_blank">Play</a>
+          </button>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+  <script src="{% static 'app/like.js' %}"></script>
+{% endblock %}
