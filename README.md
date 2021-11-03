@@ -41,23 +41,3 @@ of the course.
 * This project utilises Django with 2 models on the backend (for making api requests and other logic)
 * JavaScript is used in like functionality and also used in some buttons to hide and display certian sections.
 * This web app is completely mobile responsive(infact the design looks much better on mobile)
-
-## Files created by me - 
-* __app__ is the main app that handels all the functionality of the website. It contains - 
-  * static/app that contains all the static files -
-    * styles.css that contains all our css styles.
-    * add.js that contains javascript that will be used when we click on Add to Playlist button in 'add/', it will display all our playlist and a form to create a new playlist (which were hidden previously).
-    * like.js which implements like action on explore page(Changes frontend and sends fetch request to view to change the data).
-  * templates - 
-    * add.html - Page that let's us select the songs to be added in playlist and select the playlist we want to add them.
-    * edit_tracks.html - Page that let's us remove songs from a playlist.
-    * explore.html - Page were all playlists of all users(who have used this app) with link to the playlist and option to like them.
-    * index.html - Page after login is complete, gives you a list of your favourites(mini 'Spotify Wrapped').
-    * landing_page.html - Sign in page.
-    * layout.html - Has code that is shared by all other templates.
-    * playlists.html - Renders when you click on _Make Playlists_, gives you a list of recently playes songs and liked songs.
-  * templatetags - 
-    * custom_tags.py - Creates a custom tag to go on _Make Playlist_ section with an id of a particular section (recently played or liked).
-  * Procfile and runtime.txt are used for hosting on Heroku.
-  
-
