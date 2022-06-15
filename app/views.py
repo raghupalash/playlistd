@@ -17,8 +17,8 @@ MESSAGE_TAGS = {
     40: 'danger'
 }
 
-os.environ["SPOTIPY_CLIENT_ID"] = "72de6f3abdc24383a58e4b56cfb14e14"
-os.environ["SPOTIPY_CLIENT_SECRET"] = "f5f9fbe5d9a64d11896e7dc42bd901ed"
+os.environ["SPOTIPY_CLIENT_ID"] = ""
+os.environ["SPOTIPY_CLIENT_SECRET"] = ""
 os.environ["SPOTIPY_REDIRECT_URI"] = "https://playlistd.herokuapp.com/"
 
 
